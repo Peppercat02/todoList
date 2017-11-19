@@ -1,0 +1,42 @@
+<!-- header -->
+<nav class="navbar navbar-inverse bg-inverse">
+    <a class="navbar-brand col-sm-2" href="/">To Do List</a>
+    <span class="col-sm-8"></span>
+    <span class="col-sm-2 text-light bg-inverse text-align"><%= Date.today.strftime("%Y-%m-%d") %></span>
+</nav>
+<!-- container -->
+<div class="container">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th class="col-sm-3">Name</th>
+        <th class="col-sm-1">Due Date</th>
+        <th class="col-sm-5">Note</th>
+        <th class="col-sm-3"><%= link_to 'Add', new_list_path, class:"btn btn-success btn-lg pull-right" %></th>
+      </tr>
+    </thead>
+    <% @lists.each_with_index do |list, index| %>
+        <tr>
+            <th scope="row"><%= index+1 %></th>
+            <td><%= list.name %></td>
+            <td><%= list.due_date %></td>
+            <td><%= list.note %></td>
+            <td>
+                <%= link_to 'Edit', edit_list_path(list), class:"btn btn-warning btn-lg pull-right" %>
+                <% if list.due_date <= Date.today %>
+                    <button type="button" class="btn btn-danger btn-lg pull-right" disabled="disabled">Delete</button>
+                <% else %>
+                    <%= link_to 'Delete', list_path(list), method: :delete, data:{ confirm: "Are you sure?" }, class:"btn btn-danger btn-lg pull-right" %>
+                <% end %>
+
+            </td>
+        </tr>
+    <% end %>
+</table>
+<%= link_to 'Add', new_list_path, class:"btn btn-success btn-lg pull-right" %>
+</div>
+<hr />
+<footer class="container text-center">
+    &copy; 2017 - by Cheny
+</footer>

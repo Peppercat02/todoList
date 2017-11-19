@@ -1,0 +1,36 @@
+<% if @lists.errors.present? %>
+<ul>
+    <% @lists.errors.each do |error, message| %>
+    <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+</ul>
+<% end%>
+<!-- header -->
+<nav class="navbar navbar-inverse bg-inverse">
+    <a class="navbar-brand col-sm-2" href="/">To Do List</a>
+    <span class="col-sm-8"></span>
+    <span class="col-sm-2 text-light bg-inverse text-align"><%= Date.today.strftime("%Y-%m-%d") %></span>
+</nav>
+<!-- container -->
+<div class="form container">
+    <div class="panel panel-default">
+        <%= form_for @lists do |f| %>
+        <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Name of to do list" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :due_date %>
+            <%= f.text_field :due_date, class: "form-control", placeholder: "2017-11-01" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :note %>
+            <%= f.text_area :note, class: "form-control" %>
+        </div>
+        <div class="form-group">
+            <%= f.submit "Submit", class:"btn btn-primary btn-lg pull-right" %>
+            <%= link_to 'Back', root_path, class:"btn btn-warning btn-lg pull-right" %>
+        </div>
+        <% end %>
+    </div>
+</div>
